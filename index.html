@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NutriRuta — Boceto</title>
+
+<style>
+*{box-sizing:border-box; margin:0;font-family:Arial,Helvetica,sans-serif}
+body{background:#f1f8e9}
+.app{max-width:420px;margin:0 auto;background:#fff;min-height:100vh;border-left:1px solid #ddd;border-right:1px solid #ddd;display:flex;flex-direction:column}
+header{background:#2e7d32;color:#fff;padding:14px;text-align:center;font-size:20px;font-weight:bold;letter-spacing:1px}
+main{flex:1}
+.pantalla{display:none;padding:18px}
+.pantalla.activa{display:block}
+h1{color:#2e7d32;font-size:30px;text-align:center;margin:26px 0 4px}
+h2{color:#2e7d32;font-size:20px;margin:4px 0 12px}
+.sub{text-align:center;color:#666;margin-bottom:16px}
+.ayuda{color:#666;font-size:13px;margin-bottom:14px}
+.centro{text-align:center}
+.benef{margin:12px 0 16px 24px;line-height:2;color:#333}
+.opcion{display:block;border:1px solid #999;border-radius:8px;padding:12px;margin-bottom:10px;cursor:pointer;font-size:15px}
+.opcion small{display:block;color:#666;margin-top:2px;font-size:12px}
+.opcion:has(input:checked){border:2px solid #2e7d32;background:#e8f5e9;padding:11px}
+.precio{display:block;font-weight:bold;color:#2e7d32;margin-top:6px}
+.principal{width:100%;padding:13px;background:#2e7d32;color:#fff;border:0;border-radius:8px;font-size:16px;margin-top:10px;cursor:pointer}
+.volver{width:100%;padding:10px;background:#fff;border:1px solid #999;border-radius:8px;margin-top:8px;cursor:pointer;color:#333}
+.tabs{display:flex;gap:6px;margin:12px 0}
+.tabs button{flex:1;padding:8px;border:1px solid #2e7d32;background:#fff;border-radius:20px;cursor:pointer;color:#2e7d32}
+.tabs button.on{background:#2e7d32;color:#fff}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.nav button{width:36px;height:36px;border-radius:50%;border:1px solid #2e7d32;background:#fff;color:#2e7d32;font-size:18px;cursor:pointer}
+.fila{display:flex;gap:8px;align-items:center;border:1px solid #ddd;border-radius:8px;padding:9px 10px;margin-bottom:8px;font-size:14px}
+.fila b{color:#2e7d32;width:36px}
+.fila span{margin-left:auto;font-weight:bold;white-space:nowrap}
+.x{border:0;background:none;color:#c00;font-size:17px;cursor:pointer;padding:0 2px}
+.total{border:1px solid #2e7d32;border-radius:8px;padding:12px;background:#e8f5e9;margin-top:12px;font-size:14px;line-height:1.8}
+.total .grande{font-size:18px;font-weight:bold;color:#2e7d32;border-top:1px solid #2e7d32;margin-top:6px;padding-top:6px}
+.mapa{border:1px solid #999;border-radius:8px;margin-bottom:12px;display:block}
+.ok{width:74px;height:74px;border:3px solid #2e7d32;border-radius:50%;color:#2e7d32;font-size:36px;display:flex;align-items:center;justify-content:center;margin:26px auto 12px}
+.credito{margin-top:28px;text-align:center;color:#555;font-size:13px;line-height:1.7;border-top:1px solid #ddd;padding-top:14px}
+.credito b{color:#2e7d32;letter-spacing:1px}
+footer{text-align:center;color:#888;font-size:11px;padding:12px;line-height:1.6;border-top:1px solid #eee}
+
+</style>
+
+</head>
+<body>
+<div class="app">
+<header>NutriRuta</header>
+<main>
+
+<!-- 1. PANTALLA DE INICIO -->
+<section id="p1" class="pantalla activa">
+  <h1>NutriRuta</h1>
+  <p class="sub">Alimentación saludable para tu jornada</p>
+  <ul class="benef">
+    <li>Comida real y nutritiva</li>
+    <li>Ingredientes frescos y de calidad</li>
+    <li>Menos desperdicio, más impacto</li>
+  </ul>
+  <button class="principal" onclick="ir('p2')">Comenzar</button>
+  <p class="credito"><b>LORENA VILLEGAS</b><br>Ingeniería Multimedia<br>Validación y Verificación Multimedia</p>
+</section>
+
+<!-- 2. PREFERENCIA ALIMENTARIA -->
+<section id="p2" class="pantalla">
+  <h2>¿Qué tipo de alimentación prefieres?</h2>
+  <label class="opcion"><input type="radio" name="pref" value="veg"> <b>Vegetariana</b><small>Platos sin carne</small></label>
+  <label class="opcion"><input type="radio" name="pref" value="carne"> <b>Con carne</b><small>Incluye pollo, res o pescado</small></label>
+  <button class="principal" onclick="elegirPref()">Continuar</button>
+  <button class="volver" onclick="ir('p1')">← Volver</button>
+</section>
+
+<!-- 3. SELECCIÓN DE PLAN -->
+<section id="p3" class="pantalla">
+  <h2>Planes disponibles</h2>
+  <p class="ayuda">Elige el plan que mejor se adapte a ti.</p>
+  <label class="opcion"><input type="radio" name="plan" value="basico"> <b>Plan Semanal Básico</b>
+    <small>De 2 a 6 almuerzos · opción vegetariana o con carne</small>
+    <span class="precio">Desde $ 18.000 por almuerzo</span></label>
+  <label class="opcion"><input type="radio" name="plan" value="snack"> <b>Plan Almuerzo + Snack</b>
+    <small>Almuerzos + snacks saludables · más variedad</small>
+    <span class="precio">Desde $ 24.000 por día</span></label>
+  <button class="principal" onclick="elegirPlan()">Elegir plan</button>
+  <button class="volver" onclick="ir('p2')">← Volver</button>
+</section>
+
+<!-- 4. SELECCIÓN DE DÍAS -->
+<section id="p4" class="pantalla">
+  <h2>Selecciona los días de tu semana</h2>
+  <p class="ayuda">Marca los días que deseas almorzar (mínimo 2).</p>
+  <label class="opcion"><input type="checkbox" name="dia" value="0"> <b>Lunes</b> <small class="fechaDia"></small></label>
+  <label class="opcion"><input type="checkbox" name="dia" value="1"> <b>Martes</b> <small class="fechaDia"></small></label>
+  <label class="opcion"><input type="checkbox" name="dia" value="2"> <b>Miércoles</b> <small class="fechaDia"></small></label>
+  <label class="opcion"><input type="checkbox" name="dia" value="3"> <b>Jueves</b> <small class="fechaDia"></small></label>
+  <label class="opcion"><input type="checkbox" name="dia" value="4"> <b>Viernes</b> <small class="fechaDia"></small></label>
+  <label class="opcion"><input type="checkbox" name="dia" value="5"> <b>Sábado</b> <small class="fechaDia"></small></label>
+  <button class="principal" onclick="verMenu()">Ver menú de la semana</button>
+  <button class="volver" onclick="ir('p3')">← Volver</button>
+</section>
+
+<!-- 5. OPCIONES DE ALMUERZO POR DÍA -->
+<section id="p5" class="pantalla">
+  <div class="nav">
+    <button onclick="cambiarDia(-1)">‹</button>
+    <div class="centro"><h2 id="mDia">Lunes</h2><small id="mFecha" class="ayuda"></small></div>
+    <button onclick="cambiarDia(1)">›</button>
+  </div>
+  <div class="tabs">
+    <button id="tabCarne" onclick="tab('carne')">Con carne</button>
+    <button id="tabVeg" onclick="tab('veg')">Vegetariana</button>
+  </div>
+  <div id="mOpciones"></div>
+  <button class="principal" id="btnMenu" onclick="siguienteDia()">Siguiente día</button>
+  <button class="volver" onclick="ir('p4')">← Volver</button>
+</section>
+
+<!-- 6. SELECCIÓN DE SNACKS -->
+<section id="p6" class="pantalla">
+  <h2>¿Deseas agregar snacks saludables?</h2>
+  <p class="ayuda">Complementa tu plan con opciones nutritivas.</p>
+  <label class="opcion"><input type="checkbox" name="snack" value="4000" data-n="Frutas frescas"> <b>Frutas frescas</b><small>1 porción</small><span class="precio">$ 4.000</span></label>
+  <label class="opcion"><input type="checkbox" name="snack" value="4000" data-n="Mix de nueces"> <b>Mix de nueces</b><small>30 g</small><span class="precio">$ 4.000</span></label>
+  <label class="opcion"><input type="checkbox" name="snack" value="5000" data-n="Yogurt natural con granola"> <b>Yogurt natural</b><small>Con granola</small><span class="precio">$ 5.000</span></label>
+  <button class="principal" onclick="pintarResumen();ir('p7')">Continuar</button>
+  <button class="volver" onclick="pintarMenu();ir('p5')">← Volver</button>
+</section>
+
+<!-- 7. RESUMEN DE LA SEMANA -->
+<section id="p7" class="pantalla">
+  <h2>Mi plan de la semana</h2>
+  <div id="resumen"></div>
+  <button class="volver" onclick="ir('p4')">+ Agregar más días</button>
+  <div class="total" id="totales"></div>
+  <button class="principal" onclick="irRecogida()">Continuar</button>
+  <button class="volver" onclick="ir('p6')">← Volver</button>
+</section>
+
+<!-- 8. PUNTO DE RECOGIDA -->
+<section id="p8" class="pantalla">
+  <h2>Punto de recogida</h2>
+  <p class="ayuda">Selecciona el lugar más cercano.</p>
+  <svg class="mapa" viewBox="0 0 360 150" width="100%">
+    <rect width="360" height="150" fill="#e8f5e9"/>
+    <g stroke="#ffffff" stroke-width="9"><path d="M0 40H360M0 105H360M60 0V150M170 0V150M280 0V150"/></g>
+    <path d="M110 75c-7-8-10-12-10-17a10 10 0 1 1 20 0c0 5-3 9-10 17Z" fill="#2e7d32"/>
+    <circle cx="110" cy="58" r="3.5" fill="#fff"/>
+    <path d="M240 118c-6-7-9-11-9-15a9 9 0 1 1 18 0c0 4-3 8-9 15Z" fill="#777"/>
+    <path d="M310 45c-6-7-9-11-9-15a9 9 0 1 1 18 0c0 4-3 8-9 15Z" fill="#777"/>
+  </svg>
+  <label class="opcion"><input type="radio" name="punto" value="Sede Universidad" checked> <b>Sede Universidad</b><small>A 300 m de ti</small></label>
+  <label class="opcion"><input type="radio" name="punto" value="Edificio de oficinas"> <b>Edificio de oficinas</b><small>A 500 m de ti</small></label>
+  <label class="opcion"><input type="radio" name="punto" value="Centro comercial"> <b>Centro comercial</b><small>A 1 km de ti</small></label>
+  <p class="ayuda">Horarios de recogida: <b>11:30 a.m. – 4:00 p.m.</b></p>
+  <button class="principal" onclick="ir('p9')">Continuar</button>
+  <button class="volver" onclick="pintarResumen();ir('p7')">← Volver</button>
+</section>
+
+<!-- 9. MÉTODO DE PAGO -->
+<section id="p9" class="pantalla">
+  <h2>Método de pago</h2>
+  <p class="ayuda">Elige cómo quieres pagar tu plan.</p>
+  <label class="opcion"><input type="radio" name="pago" value="Tarjeta de crédito/débito" checked> Tarjeta de crédito/débito</label>
+  <label class="opcion"><input type="radio" name="pago" value="PSE"> PSE</label>
+  <label class="opcion"><input type="radio" name="pago" value="Nequi"> Nequi</label>
+  <label class="opcion"><input type="radio" name="pago" value="Daviplata"> Daviplata</label>
+  <p class="ayuda" style="margin-top:12px">Tu pedido llegará en envases reutilizables.<br>¡Juntos reducimos el impacto ambiental!</p>
+  <button class="principal" onclick="pintarConfirm();ir('p10')">Pagar y confirmar</button>
+  <button class="volver" onclick="ir('p8')">← Volver</button>
+</section>
+
+<!-- 10. CONFIRMACIÓN DEL PEDIDO -->
+<section id="p10" class="pantalla">
+  <div class="ok">✓</div>
+  <h2 class="centro">¡Pedido confirmado!</h2>
+  <p class="ayuda centro">Tus almuerzos están listos para ser recogidos en el punto seleccionado.</p>
+  <div class="total" id="ticket"></div>
+  <button class="principal" onclick="pintarResumen();ir('p7')">Ver mi pedido</button>
+  <button class="volver" onclick="location.reload()">Volver al inicio</button>
+</section>
+
+</main>
+<footer><b>LORENA VILLEGAS</b> · Ingeniería Multimedia-2026<br>Validación y Verificación Multimedia</footer>
+</div>
+
+<script>
+// Datos del menu: [nombre, descripcion, precio]
+const DIAS = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const PLATOS = {
+  carne: [['Bowl de pollo','Con quinoa y rugula, tomate cherry, pepino',18000],
+          ['Res salteada','Con arroz integral y ensalada(pepino, zanahoria, tomate y aguacate)',18000],
+          ['Ensalada de atún','Con garbanzos y aguacate',18000],
+          ['Pescado a la plancha','Con puré de papa y pepino cohombro, tomate y aguacate',18000],
+          ['Lasaña de pollo','Con espinaca y queso',18000],
+          ['Wrap de pollo','Con manzana verde y lechuga',18000]],
+  veg:   [['Curry de garbanzos','Con quinua',17000],
+          ['Burritos de champiñones','Con guacamole',18000],
+          ['Pasta de sukini','Con zanahoria, pepino cohombro, pepinillos',17000],
+          ['Hamburguesa de lentejas','Con tomate, lechuga, cebolla',18000],
+          ['Lasaña de berenjena','Con queso y tomate',19000],
+          ['Wrap de hummus','Con rugula, tomate cherry, pepino',17000]]
+};
+
+// Fechas de esta semana (lunes a sabado)
+const fechas = [];
+{ const hoy = new Date(), lun = new Date(hoy);
+  lun.setDate(hoy.getDate() - ((hoy.getDay() + 6) % 7));
+  for (let i = 0; i < 6; i++) {
+    const f = new Date(lun); f.setDate(lun.getDate() + i);
+    fechas.push(f.toLocaleDateString('es-CO', {day:'numeric', month:'long'}));
+  }
+}
+document.querySelectorAll('.fechaDia').forEach((s, i) => s.textContent = fechas[i]);
+
+// Estado del pedido
+let tipo = 'carne';      // pestana activa: carne o veg
+let diasSel = [];        // indices de DIAS elegidos
+let menus = {};          // indiceDia -> {tab, nombre, precio}
+let diaActual = 0;       // dia que se muestra en la pantalla 5
+
+const $ = id => document.getElementById(id);
+const dinero = n => '$ ' + n.toLocaleString('es-CO');
+
+// Navegacion entre pantallas
+function ir(id) {
+  document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
+  $(id).classList.add('activa');
+  window.scrollTo(0, 0);
+}
+function elegirPref() {
+  const p = document.querySelector('[name=pref]:checked');
+  if (!p) return alert('Elige una opción');
+  tipo = p.value;   // la pestana del menu arranca con tu preferencia
+  ir('p3');
+}
+function elegirPlan() {
+  if (!document.querySelector('[name=plan]:checked')) return alert('Elige un plan');
+  ir('p4');
+}
+
+// Pantalla 5: menu por dia
+function verMenu() {
+  diasSel = [...document.querySelectorAll('[name=dia]:checked')].map(c => +c.value);
+  if (diasSel.length < 2) return alert('Elige mínimo 2 días');
+  diaActual = 0;
+  pintarMenu();
+  ir('p5');
+}
+function opcionesDe(d) { return [PLATOS[tipo][d], PLATOS[tipo][(d + 3) % 6]]; }
+function pintarMenu() {
+  const d = diasSel[diaActual];
+  $('mDia').textContent = DIAS[d];
+  $('mFecha').textContent = fechas[d];
+  $('tabCarne').className = tipo == 'carne' ? 'on' : '';
+  $('tabVeg').className = tipo == 'veg' ? 'on' : '';
+  const ops = opcionesDe(d);
+  if (!menus[d] || menus[d].tab != tipo)           // opcion 1 por defecto
+    menus[d] = {tab: tipo, nombre: ops[0][0], precio: ops[0][2]};
+  $('mOpciones').innerHTML = ops.map((o, i) => `
+    <label class="opcion"><input type="radio" name="op" ${menus[d].nombre == o[0] ? 'checked' : ''} onclick="elegir(${i})">
+    <b>${o[0]}</b><small>${o[1]}</small><span class="precio">${dinero(o[2])}</span></label>`).join('');
+  $('btnMenu').textContent = diaActual == diasSel.length - 1 ? 'Continuar' : 'Siguiente día';
+}
+function elegir(i) {
+  const d = diasSel[diaActual], o = opcionesDe(d)[i];
+  menus[d] = {tab: tipo, nombre: o[0], precio: o[2]};
+}
+function tab(t) { tipo = t; pintarMenu(); }
+function cambiarDia(n) {
+  diaActual = Math.min(Math.max(diaActual + n, 0), diasSel.length - 1);
+  pintarMenu();
+}
+function siguienteDia() {
+  if (diaActual < diasSel.length - 1) { diaActual++; pintarMenu(); }
+  else ir('p6');
+}
+
+// Pantalla 7: resumen y totales
+function snacksSel() {
+  return [...document.querySelectorAll('[name=snack]:checked')].map(s => ({n: s.dataset.n, p: +s.value}));
+}
+function pintarResumen() {
+  $('resumen').innerHTML = diasSel.filter(d => menus[d]).map(d => `
+    <div class="fila"><b>${DIAS[d].slice(0,3)}</b> ${menus[d].nombre}
+    <span>${dinero(menus[d].precio)}</span>
+    <button class="x" onclick="quitar(${d})">×</button></div>`).join('');
+  const tA = diasSel.reduce((a, d) => a + (menus[d] ? menus[d].precio : 0), 0);
+  const sn = snacksSel(), tS = sn.reduce((a, s) => a + s.p, 0);
+  $('totales').innerHTML = `Total estimado<br>
+    ${diasSel.length} almuerzos — ${dinero(tA)}<br>
+    ${sn.length ? sn.length + ' snack(s) — ' + dinero(tS) + '<br>' : ''}
+    <div class="grande">Total: ${dinero(tA + tS)}</div>`;
+}
+function quitar(d) {
+  diasSel = diasSel.filter(x => x != d);
+  delete menus[d];
+  document.querySelectorAll('[name=dia]')[d].checked = false;
+  pintarResumen();
+}
+function irRecogida() {
+  if (diasSel.length < 2) { alert('Elige mínimo 2 días'); ir('p4'); }
+  else ir('p8');
+}
+
+// Pantalla 10: confirmacion
+function pintarConfirm() {
+  const sn = snacksSel();
+  const tA = diasSel.reduce((a, d) => a + menus[d].precio, 0);
+  const tS = sn.reduce((a, s) => a + s.p, 0);
+  $('ticket').innerHTML = `Resumen<br>
+    ${diasSel.length} almuerzos${sn.length ? ' · ' + sn.length + ' snack(s)' : ''}<br>
+    Punto de recogida: <b>${document.querySelector('[name=punto]:checked').value}</b><br>
+    Pago: <b>${document.querySelector('[name=pago]:checked').value}</b>
+    <div class="grande">Valor total: ${dinero(tA + tS)}</div>`;
+}
+</script>
+</body>
+</html>
