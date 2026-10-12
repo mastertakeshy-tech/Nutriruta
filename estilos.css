@@ -1,0 +1,333 @@
+/* Estilos sencillos de NutriRuta. Puedes cambiar los colores desde estas variables. */
+:root {
+  --verde: #2e7d32;
+  --verde-claro: #e8f5e9;
+  --fondo: #f1f8e9;
+  --texto: #333333;
+  --borde: #dddddd;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+}
+
+.app {
+  max-width: 460px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-left: 1px solid var(--borde);
+  border-right: 1px solid var(--borde);
+}
+
+.encabezado {
+  padding: 16px;
+  text-align: center;
+  color: #ffffff;
+  background: var(--verde);
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.encabezado p {
+  margin: 6px 0 0;
+  font-size: 13px;
+}
+
+main {
+  flex: 1;
+}
+
+.pantalla {
+  display: none;
+  padding: 20px;
+}
+
+.pantalla.activa {
+  display: block;
+}
+
+h1, h2 {
+  color: var(--verde);
+}
+
+h1 {
+  margin: 12px 0;
+  text-align: center;
+  font-size: 27px;
+}
+
+h2 {
+  margin: 4px 0 12px;
+  font-size: 21px;
+}
+
+.texto-centro {
+  text-align: center;
+  line-height: 1.5;
+}
+
+.ayuda, .nota-imagen {
+  color: #666666;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0 0 14px;
+}
+
+.imagen-portada {
+  display: block;
+  width: 170px;
+  height: 170px;
+  object-fit: contain;
+  margin: 18px auto 6px;
+}
+
+.nota-imagen {
+  text-align: center;
+  font-size: 11px;
+}
+
+.beneficios {
+  padding-left: 22px;
+  margin: 20px 0;
+  line-height: 1.9;
+  font-size: 14px;
+}
+
+.opcion {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #aaaaaa;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.opcion:has(input:checked) {
+  border: 2px solid var(--verde);
+  background: var(--verde-claro);
+}
+
+.opcion input {
+  margin-top: 3px;
+  accent-color: var(--verde);
+}
+
+.opcion span {
+  display: block;
+}
+
+.opcion small {
+  display: block;
+  margin-top: 4px;
+  color: #666666;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.precio {
+  display: block;
+  margin-top: 7px;
+  color: var(--verde);
+}
+
+.boton {
+  width: 100%;
+  padding: 12px;
+  margin-top: 9px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.principal {
+  border: 1px solid var(--verde);
+  background: var(--verde);
+  color: #ffffff;
+}
+
+.principal:hover {
+  background: #256629;
+}
+
+.secundario {
+  border: 1px solid #999999;
+  background: #ffffff;
+  color: var(--texto);
+}
+
+.lista-dia {
+  margin-bottom: 9px;
+}
+
+.navegacion-dia {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  text-align: center;
+}
+
+.navegacion-dia h2 {
+  margin-bottom: 4px;
+}
+
+.flecha {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--verde);
+  border-radius: 50%;
+  color: var(--verde);
+  background: #ffffff;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+.pestanas {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.pestanas button {
+  flex: 1;
+  padding: 9px 5px;
+  border: 1px solid var(--verde);
+  border-radius: 20px;
+  background: #ffffff;
+  color: var(--verde);
+  cursor: pointer;
+}
+
+.pestanas button.seleccionada {
+  background: var(--verde);
+  color: #ffffff;
+}
+
+.plato {
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid var(--borde);
+  border-radius: 9px;
+}
+
+.plato img {
+  display: block;
+  width: 100%;
+  height: 115px;
+  margin-bottom: 9px;
+  border-radius: 6px;
+  object-fit: contain;
+  background: #f8faf6;
+}
+
+.plato label {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 14px;
+}
+
+.plato small {
+  display: block;
+  margin-top: 4px;
+  color: #666666;
+}
+
+.mapa-ilustrado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 100px;
+  margin-bottom: 14px;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  background: repeating-linear-gradient(45deg, #edf5e9, #edf5e9 14px, #e1eddd 14px, #e1eddd 28px);
+  color: var(--verde);
+  font-size: 27px;
+}
+
+.mapa-ilustrado span {
+  font-size: 13px;
+}
+
+.fila-resumen {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--borde);
+  font-size: 13px;
+}
+
+.fila-resumen span {
+  color: #666666;
+}
+
+.caja-total {
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid var(--verde);
+  border-radius: 8px;
+  background: var(--verde-claro);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.total-grande {
+  padding-top: 8px;
+  margin-top: 8px;
+  border-top: 1px solid var(--verde);
+  color: var(--verde);
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.circulo-ok {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  margin: 10px auto 18px;
+  border: 3px solid var(--verde);
+  border-radius: 50%;
+  color: var(--verde);
+  font-size: 35px;
+}
+
+footer {
+  padding: 13px;
+  border-top: 1px solid #eeeeee;
+  color: #777777;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+@media (max-width: 400px) {
+  .pantalla {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+}
