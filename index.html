@@ -1,138 +1,155 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NutriRuta | Mi plan semanal</title>
-  <link rel="stylesheet" href="estilos.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NutriRuta — Boceto</title>
+
+<link rel="stylesheet" href="estilos.css">
+
 </head>
 <body>
-  <div class="app">
-    <header class="encabezado">
-      <div class="logo">NutriRuta</div>
-      <p>Alimentación saludable para tu jornada</p>
-    </header>
+<div class="app">
+<header>NutriRuta</header>
+<main>
 
-    <main>
-      <!-- PANTALLA 1: INICIO -->
-      <section id="inicio" class="pantalla activa">
-        <h1>Bienvenido a NutriRuta</h1>
-        <p class="texto-centro">Organiza tus almuerzos de la semana de una forma sencilla.</p>
-
-                <img class="imagen-portada" src="fotos/figura1.png" alt="Figura 1. Imagen provisional de NutriRuta">
-        <p class="nota-imagen">Figura 1.</p>
-
-        <ul class="beneficios">
-          <li>Opciones para diferentes preferencias</li>
-          <li>Organización de los almuerzos semanales</li>
-          <li>Selección de snacks y punto de recogida</li>
-        </ul>
-        <button class="boton principal" onclick="mostrarPantalla('preferencias')">Comenzar</button>
-      </section>
-
-      <!-- PANTALLA 2: PREFERENCIAS -->
-      <section id="preferencias" class="pantalla">
-        <h2>¿Qué tipo de alimentación prefieres?</h2>
-        <p class="ayuda">Elige una opción para mostrarte ideas de menú.</p>
-        <label class="opcion"><input type="radio" name="preferencia" value="veg"> <span><b>Vegetariana</b><small>Platos sin carne.</small></span></label>
-        <label class="opcion"><input type="radio" name="preferencia" value="carne"> <span><b>Con carne</b><small>Puede incluir pollo, res o pescado.</small></span></label>
-        <button class="boton principal" onclick="guardarPreferencia()">Continuar</button>
-        <button class="boton secundario" onclick="mostrarPantalla('inicio')">Volver</button>
-      </section>
-
-      <!-- PANTALLA 3: PLANES -->
-      <section id="planes" class="pantalla">
-        <h2>Planes disponibles</h2>
-        <p class="ayuda">Selecciona el plan que se ajuste a tu semana.</p>
-        <label class="opcion"><input type="radio" name="plan" value="basico"> <span><b>Plan semanal básico</b><small>De 2 a 6 almuerzos.</small><strong class="precio">Desde $18.000 por almuerzo</strong></span></label>
-        <label class="opcion"><input type="radio" name="plan" value="snack"> <span><b>Plan almuerzo + snack</b><small>Almuerzos y snacks saludables.</small><strong class="precio">Desde $24.000 por día</strong></span></label>
-        <button class="boton principal" onclick="guardarPlan()">Elegir plan</button>
-        <button class="boton secundario" onclick="mostrarPantalla('preferencias')">Volver</button>
-      </section>
-
-      <!-- PANTALLA 4: DÍAS -->
-      <section id="dias" class="pantalla">
-        <h2>Elige los días de tu semana</h2>
-        <p class="ayuda">Selecciona mínimo dos días para continuar.</p>
-        <div id="listaDias"></div>
-        <button class="boton principal" onclick="prepararMenu()">Ver menú de la semana</button>
-        <button class="boton secundario" onclick="mostrarPantalla('planes')">Volver</button>
-      </section>
-
-      <!-- PANTALLA 5: MENÚ POR DÍA -->
-      <section id="menu" class="pantalla">
-        <div class="navegacion-dia">
-          <button class="flecha" onclick="cambiarDia(-1)" aria-label="Día anterior">‹</button>
-          <div><h2 id="nombreDia">Lunes</h2><p class="ayuda" id="fechaDia"></p></div>
-          <button class="flecha" onclick="cambiarDia(1)" aria-label="Día siguiente">›</button>
-        </div>
-        <div class="pestanas">
-          <button id="pestanaCarne" onclick="cambiarTipoMenu('carne')">Con carne</button>
-          <button id="pestanaVeg" onclick="cambiarTipoMenu('veg')">Vegetariana</button>
-        </div>
-        <div id="opcionesMenu"></div>
-        <button class="boton principal" id="botonSiguienteDia" onclick="guardarMenuDelDia()">Guardar y continuar</button>
-        <button class="boton secundario" onclick="mostrarPantalla('dias')">Volver a los días</button>
-      </section>
-
-      <!-- PANTALLA 6: SNACKS -->
-      <section id="snacks" class="pantalla">
-        <h2>¿Quieres agregar snacks?</h2>
-        <p class="ayuda">Puedes seleccionar más de una opción.</p>
-        <label class="opcion"><input type="checkbox" name="snack" value="4000" data-nombre="Frutas frescas"> <span><b>Frutas frescas</b><small>Una porción.</small><strong class="precio">$4.000</strong></span></label>
-        <label class="opcion"><input type="checkbox" name="snack" value="4000" data-nombre="Mix de nueces"> <span><b>Mix de nueces</b><small>Porción de 30 g.</small><strong class="precio">$4.000</strong></span></label>
-        <label class="opcion"><input type="checkbox" name="snack" value="5000" data-nombre="Yogurt natural con granola"> <span><b>Yogurt natural</b><small>Con granola.</small><strong class="precio">$5.000</strong></span></label>
-        <button class="boton principal" onclick="mostrarResumen()">Ver resumen</button>
-        <button class="boton secundario" onclick="mostrarPantalla('menu')">Volver al menú</button>
-      </section>
-
-      <!-- PANTALLA 7: RESUMEN -->
-      <section id="resumen" class="pantalla">
-        <h2>Mi plan de la semana</h2>
-        <div id="detalleResumen"></div>
-        <div id="totalResumen" class="caja-total"></div>
-        <button class="boton principal" onclick="mostrarPantalla('recogida')">Continuar</button>
-        <button class="boton secundario" onclick="mostrarPantalla('dias')">Cambiar días</button>
-        <button class="boton secundario" onclick="mostrarPantalla('snacks')">Editar snacks</button>
-      </section>
-
-      <!-- PANTALLA 8: RECOGIDA -->
-      <section id="recogida" class="pantalla">
-        <h2>Punto de recogida</h2>
-        <p class="ayuda">Elige el lugar donde recogerías tu pedido en esta demostración.</p>
-        <div class="mapa-ilustrado" role="img" aria-label="Mapa ilustrativo con puntos de recogida">⌖ <span>Mapa de referencia</span></div>
-        <label class="opcion"><input type="radio" name="punto" value="Sede Universidad" checked> <span><b>Sede Universidad</b><small>Punto de recogida de ejemplo.</small></span></label>
-        <label class="opcion"><input type="radio" name="punto" value="Edificio de oficinas"> <span><b>Edificio de oficinas</b><small>Punto de recogida de ejemplo.</small></span></label>
-        <label class="opcion"><input type="radio" name="punto" value="Centro comercial"> <span><b>Centro comercial</b><small>Punto de recogida de ejemplo.</small></span></label>
-        <p class="ayuda">Horario ilustrativo: 11:30 a. m. – 4:00 p. m.</p>
-        <button class="boton principal" onclick="mostrarPantalla('pago')">Continuar</button>
-        <button class="boton secundario" onclick="mostrarPantalla('resumen')">Volver</button>
-      </section>
-
-      <!-- PANTALLA 9: PAGO -->
-      <section id="pago" class="pantalla">
-        <h2>Método de pago</h2>
-        <p class="ayuda">Selecciona un método para completar el recorrido de prueba. No se realizará ningún cobro.</p>
-        <label class="opcion"><input type="radio" name="pago" value="Tarjeta de crédito o débito" checked> <span>Tarjeta de crédito o débito</span></label>
-        <label class="opcion"><input type="radio" name="pago" value="PSE"> <span>PSE</span></label>
-        <label class="opcion"><input type="radio" name="pago" value="Nequi"> <span>Nequi</span></label>
-        <label class="opcion"><input type="radio" name="pago" value="Daviplata"> <span>Daviplata</span></label>
-        <button class="boton principal" onclick="confirmarPedido()">Finalizar demostración</button>
-        <button class="boton secundario" onclick="mostrarPantalla('recogida')">Volver</button>
-      </section>
-
-      <!-- PANTALLA 10: CONFIRMACIÓN -->
-      <section id="confirmacion" class="pantalla">
-        <div class="circulo-ok">✓</div>
-        <h2 class="texto-centro">¡Recorrido completado!</h2>
-        <p class="texto-centro">Este es un resumen de prueba. No se ha enviado un pedido ni se ha realizado un pago.</p>
-        <div id="ticketFinal" class="caja-total"></div>
-        <button class="boton principal" onclick="mostrarPantalla('inicio')">Volver al inicio</button>
-      </section>
-    </main>
-
-    <footer>NutriRuta · 2026</footer>
+<!-- 1. PANTALLA DE INICIO -->
+<section id="p1" class="pantalla activa">
+  <!-- Imagen principal de NutriRuta -->
+  <div class="marcador-imagen">
+    <img src="fotos/figura1.png" alt="Alimentación saludable">
   </div>
-  <script src="script.js"></script>
+   <p class="sub">Alimentación saludable para tu jornada</p>
+  <ul class="benef">
+    <li>Comida real y nutritiva</li>
+    <li>Ingredientes frescos y de calidad</li>
+    <li>Menos desperdicio, más impacto</li>
+  </ul>
+  <button class="principal" onclick="ir('p2')">Comenzar</button>
+ 
+</section>
+
+<!-- 2. PREFERENCIAS -->
+<section id="p2" class="pantalla">
+  <h2>¿Qué tipo de alimentación prefieres?</h2>
+  <label class="opcion"><input type="radio" name="pref" value="veg"> <b>Vegetariana</b><small>Platos sin carne</small></label>
+  <label class="opcion"><input type="radio" name="pref" value="carne"> <b>Con carne</b><small>Incluye pollo, res o pescado</small></label>
+  <button class="principal" onclick="elegirPref()">Continuar</button>
+  <button class="volver" onclick="ir('p1')">← Volver</button>
+</section>
+
+<!-- 3. SELECCIÓN DE PLAN -->
+<section id="p3" class="pantalla">
+  <h2>Planes disponibles</h2>
+  <p class="ayuda">Elige el plan que mejor se adapte a ti.</p>
+  <label class="opcion"><input type="radio" name="plan" value="basico"> <b>Plan Semanal Básico</b>
+    <small>De 2 a 6 almuerzos · opción vegetariana o con carne</small>
+    <span class="precio">Desde $ 18.000 por almuerzo</span></label>
+  <label class="opcion"><input type="radio" name="plan" value="snack"> <b>Plan Almuerzo + Snack</b>
+    <small>Almuerzos + snacks saludables · más variedad</small>
+    <span class="precio">Desde $ 24.000 por día</span></label>
+  <button class="principal" onclick="elegirPlan()">Elegir plan</button>
+  <button class="volver" onclick="ir('p2')">← Volver</button>
+</section>
+
+<!-- 4. SELECCIÓN DE DÍAS -->
+<section id="p4" class="pantalla">
+  <h2>Selecciona los días de tu semana</h2>
+  <p class="ayuda">Marca los días que deseas almorzar (mínimo 2).</p>
+  <label class="opcion"><input type="checkbox" name="dia" value="0"> <b>Lunes</b> <small class="fechaDia"></small></label>
+  <label class="opcion"><input type="checkbox" name="dia" value="1"> <b>Martes</b> <small class="fechaDia"></small></label>
+  <label class="opcion"><input type="checkbox" name="dia" value="2"> <b>Miércoles</b> <small class="fechaDia"></small></label>
+  <label class="opcion"><input type="checkbox" name="dia" value="3"> <b>Jueves</b> <small class="fechaDia"></small></label>
+  <label class="opcion"><input type="checkbox" name="dia" value="4"> <b>Viernes</b> <small class="fechaDia"></small></label>
+  <label class="opcion"><input type="checkbox" name="dia" value="5"> <b>Sábado</b> <small class="fechaDia"></small></label>
+  <button class="principal" onclick="verMenu()">Ver menú de la semana</button>
+  <button class="volver" onclick="ir('p3')">← Volver</button>
+</section>
+
+<!-- 5. OPCIONES DE ALMUERZO POR DÍA -->
+<section id="p5" class="pantalla">
+  <div class="nav">
+    <button onclick="cambiarDia(-1)">‹</button>
+    <div class="centro"><h2 id="mDia">Lunes</h2><small id="mFecha" class="ayuda"></small></div>
+    <button onclick="cambiarDia(1)">›</button>
+  </div>
+  <div class="tabs">
+    <button id="tabCarne" onclick="tab('carne')">Con carne</button>
+    <button id="tabVeg" onclick="tab('veg')">Vegetariana</button>
+  </div>
+  <div id="mOpciones"></div>
+  <button class="principal" id="btnMenu" onclick="siguienteDia()">Siguiente día</button>
+  <button class="volver" onclick="ir('p4')">← Volver</button>
+</section>
+
+<!-- 6. SELECCIÓN DE SNACKS -->
+<section id="p6" class="pantalla">
+  <h2>¿Deseas agregar snacks saludables?</h2>
+  <p class="ayuda">Complementa tu plan con opciones nutritivas.</p>
+  <label class="opcion"><input type="checkbox" name="snack" value="4000" data-n="Frutas frescas"> <b>Frutas frescas</b><small>1 porción</small><span class="precio">$ 4.000</span></label>
+  <label class="opcion"><input type="checkbox" name="snack" value="4000" data-n="Mix de nueces"> <b>Mix de nueces</b><small>30 g</small><span class="precio">$ 4.000</span></label>
+  <label class="opcion"><input type="checkbox" name="snack" value="5000" data-n="Yogurt natural con granola"> <b>Yogurt natural</b><small>Con granola</small><span class="precio">$ 5.000</span></label>
+  <button class="principal" onclick="pintarResumen();ir('p7')">Continuar</button>
+  <button class="volver" onclick="pintarMenu();ir('p5')">← Volver</button>
+</section>
+
+<!-- 7. RESUMEN DE LA SEMANA -->
+<section id="p7" class="pantalla">
+  <h2>Mi plan de la semana</h2>
+  <div id="resumen"></div>
+  <button class="volver" onclick="ir('p4')">+ Agregar más días</button>
+  <div class="total" id="totales"></div>
+  <button class="principal" onclick="irRecogida()">Continuar</button>
+  <button class="volver" onclick="ir('p6')">← Volver</button>
+</section>
+
+<!-- 8. PUNTO DE RECOGIDA -->
+<section id="p8" class="pantalla">
+  <h2>Punto de recogida</h2>
+  <p class="ayuda">Selecciona el lugar más cercano.</p>
+  <svg class="mapa" viewBox="0 0 360 150" width="100%">
+    <rect width="360" height="150" fill="#e8f5e9"/>
+    <g stroke="#ffffff" stroke-width="9"><path d="M0 40H360M0 105H360M60 0V150M170 0V150M280 0V150"/></g>
+    <path d="M110 75c-7-8-10-12-10-17a10 10 0 1 1 20 0c0 5-3 9-10 17Z" fill="#2e7d32"/>
+    <circle cx="110" cy="58" r="3.5" fill="#fff"/>
+    <path d="M240 118c-6-7-9-11-9-15a9 9 0 1 1 18 0c0 4-3 8-9 15Z" fill="#777"/>
+    <path d="M310 45c-6-7-9-11-9-15a9 9 0 1 1 18 0c0 4-3 8-9 15Z" fill="#777"/>
+  </svg>
+  <label class="opcion"><input type="radio" name="punto" value="Sede Universidad" checked> <b>Sede Universidad</b><small>A 300 m de ti</small></label>
+  <label class="opcion"><input type="radio" name="punto" value="Edificio de oficinas"> <b>Edificio de oficinas</b><small>A 500 m de ti</small></label>
+  <label class="opcion"><input type="radio" name="punto" value="Centro comercial"> <b>Centro comercial</b><small>A 1 km de ti</small></label>
+  <p class="ayuda">Horarios de recogida: <b>11:30 a.m. – 2:00 p.m.</b></p>
+  <button class="principal" onclick="ir('p9')">Continuar</button>
+  <button class="volver" onclick="pintarResumen();ir('p7')">← Volver</button>
+</section>
+
+<!-- 9. MÉTODO DE PAGO -->
+<section id="p9" class="pantalla">
+  <h2>Método de pago</h2>
+  <p class="ayuda">Elige cómo quieres pagar tu plan.</p>
+  <label class="opcion"><input type="radio" name="pago" value="Tarjeta de crédito/débito" checked> Tarjeta de crédito/débito</label>
+  <label class="opcion"><input type="radio" name="pago" value="PSE"> PSE</label>
+  <label class="opcion"><input type="radio" name="pago" value="Nequi"> Nequi</label>
+  <label class="opcion"><input type="radio" name="pago" value="Daviplata"> Daviplata</label>
+  <p class="ayuda" style="margin-top:12px">Tu pedido llegará en envases reutilizables.<br>¡Juntos reducimos el impacto ambiental!</p>
+  <button class="principal" onclick="pintarConfirm();ir('p10')">Pagar y confirmar</button>
+  <button class="volver" onclick="ir('p8')">← Volver</button>
+</section>
+
+<!-- 10. CONFIRMACIÓN DEL PEDIDO -->
+<section id="p10" class="pantalla">
+  <div class="ok">✓</div>
+  <h2 class="centro">¡Pedido confirmado!</h2>
+  <p class="ayuda centro">Tus almuerzos están listos para ser recogidos en el punto seleccionado.</p>
+  <div class="total" id="ticket"></div>
+  <button class="principal" onclick="pintarResumen();ir('p7')">Ver mi pedido</button>
+  <button class="volver" onclick="location.reload()">Volver al inicio</button>
+</section>
+
+</main>
+<footer><b>- 2026 -</footer>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
