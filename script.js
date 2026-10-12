@@ -1,3 +1,4 @@
+//configuración del sistema 
 // Opciones del menú: nombre, descripción, precio y ruta de la imagen
 const DIAS = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 const PLATOS = {
